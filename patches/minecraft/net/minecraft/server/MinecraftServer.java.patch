@@ -6,6 +6,7 @@
 +import cpw.mods.fml.common.FMLCommonHandler;
 +import cpw.mods.fml.relauncher.ArgsWrapper;
 +import cpw.mods.fml.relauncher.FMLRelauncher;
++import cpw.mods.fml.common.ModContainer;
  import cpw.mods.fml.relauncher.Side;
  import cpw.mods.fml.relauncher.SideOnly;
  import java.awt.GraphicsEnvironment;
@@ -103,6 +104,26 @@
      }
  
      public CrashReport func_71230_b(CrashReport p_71230_1_)
+
+@@ -805,4 + 805,21 @@
+    public String getPlugins()
+    {
+-     return "";
++     FMLCommonHandler.instance().getModName();
++    	List<String> brands = FMLCommonHandler.instance().getBrandings(); //0=MC,1=MCP,2=FML,3=Forge
++    	String output = brands.get(3) + ": ";
++    	
++    	List<ModContainer> mods = Loader.instance().getModList();
++    	
++    	for(int i = 0; i < mods.size(); i++) {
++    		output += mods.get(i).getModId() + " " + mods.get(i).getVersion();
++    		if (i < mods.size() - 1) {
++    			output += "; ";
++    		}
++    	}
++    	
++        return output;
+   }
 @@ -1126,6 +1148,13 @@
      @SideOnly(Side.SERVER)
      public static void main(String[] p_main_0_)
